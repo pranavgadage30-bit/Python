@@ -1,0 +1,38 @@
+def dynamicArray(n, queries):
+    arr = [[] for _ in range(n)]
+    lastAnswer = 0
+    result = []
+
+    for q in queries:
+        t, x, y = q
+
+        index = (x ^ lastAnswer) % n
+
+        if t == 1:
+            arr[index].append(y)
+
+        else:
+            lastAnswer = arr[index][y % len(arr[index])]
+            result.append(lastAnswer)
+
+    return result
+
+---------------------------------------------------------------------
+
+def dynamicArray(n, queries):
+    arr = [[] for _ in range(n)]
+    lastAnswer = 0
+    answers = []
+
+    for query in queries:
+        if query[0] == 1:
+            index = (query[1] ^ lastAnswer) % n
+            arr[index].append(query[2])
+
+        elif query[0] == 2:
+            index = (query[1] ^ lastAnswer) % n
+            position = query[2] % len(arr[index])
+            lastAnswer = arr[index][position]
+            answers.append(lastAnswer)
+
+    return answers
